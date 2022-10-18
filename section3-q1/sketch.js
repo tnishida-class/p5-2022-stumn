@@ -10,7 +10,9 @@ function setup(){
 
 function draw(){
   background(160, 192, 255);
-  count = (count + 1) % cycle;
-  // BLANK[1]
-  ellipse(width / 2, height / 2, size);
-}
+  ellipse(width / 2, height / 2, count );
+  noStroke();
+  fill(256,0,0); 
+  if(keyIsDown(UP_ARROW)){ count = (count + 3) % cycle; }
+  if(keyIsDown(DOWN_ARROW)){ count = (count - 3 ) % cycle; } 
+} 

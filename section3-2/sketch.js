@@ -10,16 +10,11 @@ function setup(){
   vx = 2;
   vy = 2;
 }
-function draw(){
-  background(5, 39, 94);
-  ellipse(x, y, 30);
-}
 
-function mouseClicked(){
-  x = mouseX;
-  y = mouseY;
-}
-
+// function mouseClicked(){
+//   x = mouseX;
+//   y = mouseY;
+// }
 
 
 // function draw(){
@@ -39,28 +34,34 @@ function mouseClicked(){
 //   y = constrain(y, 0, height);
 // }
 
-// function draw(){
-//   background(160, 192, 255);
-//   ellipse(x, y, 20, 20);
-//   x += vx;
-//   y += vy;
+function draw(){
+  background(160, 192, 255);
+  ellipse(x, y, 20, 20);
+  x += vx;
+  y += vy;
 
-//   // 重力（コメント機能でオンオフ切り替えて実行してみましょう）
-//   vy = constrain(vy + g, -vyMax, vyMax);
+  // 重力（コメント機能でオンオフ切り替えて実行してみましょう）
+  vy = constrain(vy + g, -vyMax, vyMax);
 
-//   // 端の処理パターン (1) 反対側から出てくる
-//   // if(x > width){ x = 0; }
-//   // else if(x < 0){ x = width; }
-//   // if(y > height){ y = 0; }
-//   // if(y < 0){ y = height; }
+  // 端の処理パターン (1) 反対側から出てくる
+  // if(x > width){ x = 0; }
+  // else if(x < 0){ x = width; }
+  // if(y > height){ y = 0; }
+  // if(y < 0){ y = height; }
 
-// 　// 端の処理パターン (2) 跳ね返る
-//   if(x < 0 || x > width){ vx = -1 * vx; }
-//   if(y > height){ vy = -1 * vy; }
-//   x = constrain(x, 0, width);
-//   y = constrain(y, 0, height);
-// }
+　// 端の処理パターン (2) 跳ね返る
+  if(x < 0 || x > width){ vx = -1 * vx; }
+  if(y > height){ vy = -1 * vy; }
+  x = constrain(x, 0, width);
+  y = constrain(y, 0, height);
 
-// function windowResized(){
-//   resizeCanvas(windowWidth, windowHeight);
-// }
+  if(keyIsDown(LEFT_ARROW)){ x = x-5 }
+  if(keyIsDown(RIGHT_ARROW)){ x = x+5 }
+
+  if(key == " "){ y = y-5 }
+}
+
+
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
+}

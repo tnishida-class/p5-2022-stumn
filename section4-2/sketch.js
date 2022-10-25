@@ -17,13 +17,31 @@ function draw(){
     b.x += b.vx;
     b.y += b.vy;
   }
+  let b = { 
+    x: windowWidth/2, 
+    y: windowHeight/2, 
+    size: random(20,100), 
+    vx: random(-5,5), 
+    vy: random(-5,5)
+  };
+  balls.push(b);
+
+  if(b.x < 0 || b.x > width){balls.pop(b);}
+  if(b.y < 0 || b.y > height){balls.pop(b);}
+
 }
 
 function mouseDragged(){
   const dx = mouseX - pmouseX;
   const dy = mouseY - pmouseY;
   if(mag(dx, dy) > 5){
-    const b = { x: mouseX, y: mouseY, size: 20, vx: dx, vy: dy };
+    let b = { 
+      x: mouseX, 
+      y: mouseY, 
+      size: random(20,100), 
+      vx: dx, 
+      vy: dy 
+    };
     balls.push(b);
   }
 }

@@ -9,6 +9,10 @@ function setup(){
   balls = [];
 }
 
+function isInside(b){
+  return b.x > 0 && b.x < width && b.y > 0 && b.y < height;
+}
+
 function draw(){
   background(160, 192, 255);
   for(let i = 0; i < balls.length; i++){
@@ -25,10 +29,7 @@ function draw(){
     vy: random(-5,5)
   };
   balls.push(b);
-
-  if(b.x < 0 || b.x > width){balls.pop(b);}
-  if(b.y < 0 || b.y > height){balls.pop(b);}
-
+  balls = balls.filter(isInside);
 }
 
 function mouseDragged(){

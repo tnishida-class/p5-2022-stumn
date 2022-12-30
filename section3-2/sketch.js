@@ -1,67 +1,82 @@
 // テキスト「アニメーションの基本」
 let x, y, vx, vy;
-const g = 1; // 重力加速度
-const vyMax = 30;
+const g = 0.5;
+const vyMax = 20;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
-  x = width / 2;
-  y = height / 2;
+  x = width / 4;
+  y = height / 4;
   vx = 2;
   vy = 2;
 }
 
-// function mouseClicked(){
-//   x = mouseX;
-//   y = mouseY;
-// }
-
-
-// function draw(){
-//   background(160, 192, 255);
-//   square(x, y, 50);
-//   x += vx;
-//   y += vy;
-//   vy += g; // 重力は「速度の変化量」
-//   vy = constrain(vy, -vyMax, vyMax); // 速度が大きくなりすぎないように調整
-//   if(y < 0 || y > height){ vy = -1 * vy; }
-//   y = constrain(y, 0, height);
-//   // 跳ね返りは「速度 × -1」
-//   if(x < 0 || x > width){ vx = -1.1 * vx; }
-//   if(y < 0 || y > height){ vy = -1.1 * vy; }
-//   // x座標, y座標を画面内に戻しておく
-//   x = constrain(x, 0, width);
-//   y = constrain(y, 0, height);
-// }
-
-function draw(){
-  background(160, 192, 255);
-  ellipse(x, y, 20, 20);
-  x += vx;
-  y += vy;
-
-  // 重力（コメント機能でオンオフ切り替えて実行してみましょう）
-  vy = constrain(vy + g, -vyMax, vyMax);
-
-  // 端の処理パターン (1) 反対側から出てくる
-  // if(x > width){ x = 0; }
-  // else if(x < 0){ x = width; }
-  // if(y > height){ y = 0; }
-  // if(y < 0){ y = height; }
-
-　// 端の処理パターン (2) 跳ね返る
-  if(x < 0 || x > width){ vx = -1 * vx; }
-  if(y > height){ vy = -1 * vy; }
-  x = constrain(x, 0, width);
-  y = constrain(y, 0, height);
-
-  if(keyIsDown(LEFT_ARROW)){ x = x-5 }
-  if(keyIsDown(RIGHT_ARROW)){ x = x+5 }
-
-  if(key == " "){ y = y-5 }
-}
-
-
 function windowResized(){
   resizeCanvas(windowWidth, windowHeight);
 }
+
+function mouseClicked(){
+  x = mouseX;
+  y = mouseY;
+}
+
+function gold_fish(a,b,c){
+  fill(245, 141, 66);
+  noStroke();
+  triangle(a,b,a,b+c,a+c,b+c/2);
+  rect(a+c,b,c,c);
+  triangle(a+2*c,b,a+2*c,b+c,a+3*c,b+c/2);
+  push();
+  fill(0);
+  ellipse(a+c*5/2,b+c/2,c/10);
+  pop();
+}
+
+function poi(){
+  fill(255);
+  strokeWeight(10);
+  stroke(250, 165, 226);
+  ellipse(width/2,height/2,300);
+  push();
+  fill(250, 165, 226);
+  rect(width/2-20,height/2+150,40,150);
+  pop();
+}
+
+let C = 50;
+
+function draw(){
+  background(160, 192, 255);
+  poi();
+  gold_fish(x,y,C);
+  x += vx;
+  y += vy; 
+  vy += g;
+
+  if(x < 0 || x > width-3*C){ vx = -1* vx; }
+  if(y < 0 || y > height-C){ vy = -1 * vy; }
+
+  let d = dist(width/2,height/2,x+C*3/2,y)
+  if(d<150){
+    if((y+C/2)<height/2){
+      y -= 4;
+    }
+    if((y+C/2)>=height/2){
+      y += 4;
+    }
+  }
+
+  vy = constrain(vy, -vyMax, vyMax); 
+  if(y < 0 || y > height){ vy = -1 * vy; }
+
+  if(keyIsDown(LEFT_ARROW)){ x = x-5 }
+  if(keyIsDown(RIGHT_ARROW)){ x = x+5 }
+  if(keyIsDown(UP_ARROW)){ y = y-5 }
+  if(keyIsDown(DOWN_ARROW)){ y = y+5 }
+
+  if(key == " "){ y = y-8}
+}
+
+// 金魚がポイの上を飛び跳ねていることから連想して作りました。
+// ポイ以外の所でも飛び跳ねますし、なんなら重力に引っ張られていますから、不思議な世界線だと思ってください。
+// しかし本能的に、ポイの近くでは逃げようとしているみたいです。（というように作りました。）

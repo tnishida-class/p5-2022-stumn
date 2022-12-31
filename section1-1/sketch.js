@@ -3,14 +3,14 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(10);
   strokeWeight(4);
-  fill(178, 100, 162);
-  triangle(12,120,116,120,116,10);
   fill(94, 185, 84);
-  triangle(0,108,106,108,106,0);
+  square(30, 20, 75, 20, 15, 10, 5);
+  fill(178, 100, 162);
+  triangle(116,10,116,120,12,120);
   fill(255);
   textSize(32);
   textFont("serif");
-  text("46", 68, 100);
+  text("24", 68, 100);
 }

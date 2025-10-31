@@ -1,21 +1,36 @@
-// ギリシャ国旗
+// キューバ国旗
 function setup() {
-  const blue = color(0, 51, 160);
+  const blue = color(	0, 42, 143);
   createCanvas(270, 180);
-  // noStroke();
+  noStroke();
   background(255);
 
-  let d = height / 9; // 縞1本の太さ
+  let d = height / 5; 
 
-  for(let i = 0; i < 9; i++){
-    // BLANK[1] (hint: 縞の色を交互に変えるには2で割った余りを使おう)
+  for(let i = 0; i < 5; i++){
+    if(i%2==0){
+      fill(blue);
+    }
+    else{
+      fill(255);
+    }
     rect(0, i * d, width, (i + 1) * d);
   }
 
-  fill(blue);
-  let size = d * 5;
-  rect(0, 0, size, size);
+  fill(207, 20, 43);
+  triangle(0,0,0,height,width/2,height/2);
 
   fill(255);
-  // BLANK[2] (hint: 白い十字を描くには rect を二つ描こう)
+  star(width/5, height/2, 30);
+}
+function star(cx, cy, r){
+  let n = 5;
+  beginShape();
+  for(var i = 0; i < n; i++){
+    let theta = TWO_PI * i * 2 / n - HALF_PI;
+    let x = cx + cos(theta) * r;
+    let y = cy + sin(theta) * r;
+    vertex(x,y);
+  }
+  endShape(CLOSE);
 }
